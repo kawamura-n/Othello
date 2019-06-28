@@ -9,12 +9,14 @@ import java.awt.event.*;
 public class MyClient extends JFrame implements MouseListener {
     private JButton buttonArray[][];//ボタン用の配列
     private Container c;
-    private ImageIcon blackIcon, whiteIcon, boardIcon,canPutDown;
+    private ImageIcon blackIcon, whiteIcon, boardIcon, canPutIcon;
     private ImageIcon myIcon, yourIcon;
     private int myColor;
     private boolean myTurn;
     private final int MASU = 8;
-    private static final int END_NUMBER = 60;
+    private static final int END_NUMBER = 64;
+    private String msg;
+    private int count = 0;
 
     private int putNumber;
 
@@ -37,7 +39,7 @@ public class MyClient extends JFrame implements MouseListener {
         whiteIcon = new ImageIcon("../assets/white.jpg");
         blackIcon = new ImageIcon("../assets/black.jpg");
         boardIcon = new ImageIcon("../assets/green-frame.jpg");
-        canPutDown = new ImageIcon("../assets/can-put-down.png");
+        canPutIcon = new ImageIcon("../assets/can-put-down.png");
 
         c.setLayout(null);//自動レイアウトの設定を行わない
         //ボタンの生成
@@ -99,16 +101,8 @@ public class MyClient extends JFrame implements MouseListener {
                 buttonArray[4][4].setIcon(whiteIcon);
                 buttonArray[3][4].setIcon(blackIcon);
 
-                int count=0;
+
                 while (true) {
-                    System.out.println(countCanPutDownStone());
-                    endGame();
-                    if (countCanPutDownStone() == 0 && count==0) {
-                            String msg = "PASS";
-                            out.println(msg);//送信データをバッファに書き出す
-                            out.flush();
-                    }
-                    count++;
 
                     String inputLine = br.readLine();//データを一行分だけ読み込んでみる
                     if (inputLine != null) {//読み込んだときにデータが読み込まれたかどうかをチェックする
@@ -126,6 +120,29 @@ public class MyClient extends JFrame implements MouseListener {
 
                         }
 
+                        if (cmd.equals("CANPUT")) {
+
+                            int x = Integer.parseInt(inputTokens[1]);
+                            int y = Integer.parseInt(inputTokens[2]);
+                            int ax = x - (2 * Integer.parseInt(inputTokens[3]));
+                            int ay = y - (2 * Integer.parseInt(inputTokens[4]));
+
+                            if (myTurn) {
+                                if (buttonArray[ay][ax].getIcon() != blackIcon && buttonArray[ay][ax].getIcon() != whiteIcon) {
+                                    buttonArray[ay][ax].setIcon(canPutIcon);
+                                }
+                            } else {
+                                for (int i = 0; i < MASU; i++) {
+                                    for (int j = 0; j < MASU; j++) {
+                                        if (buttonArray[i][j].getIcon() == canPutIcon) {
+                                            buttonArray[i][j].setIcon(boardIcon);
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
                         if (cmd.equals("PUSH")) {
 
                             int x = Integer.parseInt(inputTokens[1]);
@@ -133,31 +150,18 @@ public class MyClient extends JFrame implements MouseListener {
                             putNumber++;
                             System.out.println(putNumber);
 
-                            if (buttonArray[y][x].getIcon() == boardIcon) {//アイコンがwhiteIconと同じなら
+                            if (buttonArray[y][x].getIcon() != blackIcon && buttonArray[y][x].getIcon() != whiteIcon) {
                                 if (myTurn == true) {
                                     //送信元クライアントでの処理
                                     buttonArray[y][x].setIcon(myIcon);
-                                    count=0;
                                     myTurn = false;
+                                    count = 0;
                                 } else {
                                     //送信先クライアントでの処理
                                     buttonArray[y][x].setIcon(yourIcon);
                                     myTurn = true;
                                 }
                             }
-                        }
-
-                        if (cmd.equals("SEARCH")) {
-
-                            int x = Integer.parseInt(inputTokens[1]);
-                            int y = Integer.parseInt(inputTokens[2]);
-
-                            buttonArray[y][x].setIcon(canPutDown);
-
-//                            String msg = "SEARCH" +  " " + x + " " + y;
-//                            out.println(msg);
-//                            out.flush();
-
                         }
 
                         if (cmd.equals("FLIP")) {
@@ -186,15 +190,27 @@ public class MyClient extends JFrame implements MouseListener {
                             } else {
                                 buttonArray[y][x].setIcon(blackIcon);
                             }
-                        }
 
+                            if (countPutDownStone() == 0) {
+                                count++;
+                                if (count >= 2) {
+                                    endGame();
+                                }
+                                msg = "PASS";
+                                out.println(msg);//送信データをバッファに書き出す
+                                out.flush();
+                            }
+                            if (putNumber == END_NUMBER) {
+                                endGame();
+                            }
+                        }
                         if (cmd.equals("RESULT")) {
                             break;
                         }
+
                     } else {
                         break;
                     }
-
                 }
 
                 Counter counter;
@@ -207,7 +223,7 @@ public class MyClient extends JFrame implements MouseListener {
                     } else {
                         System.out.println("引き分け");
                     }
-                }else{
+                } else {
                     if (counter.whiteCount > 32) {
                         System.out.println("you win");
                     } else if (counter.whiteCount < 32) {
@@ -252,13 +268,10 @@ public class MyClient extends JFrame implements MouseListener {
 
     private boolean endGame() {
         // 打たれた石の数が60個（全部埋まった状態）以外は何もしない
-        if (putNumber == END_NUMBER) {
             String msg = "RESULT";
             out.println(msg);
             out.flush();
             return true;
-        }
-        return false;
     }
 
     private Counter countStone() {
@@ -306,11 +319,10 @@ public class MyClient extends JFrame implements MouseListener {
         while (buttonArray[y][x].getIcon() != myIcon) {
             // ひっくり返す
             buttonArray[y][x].setIcon(myIcon);
-            String msg = "REVERSE" + " " + myColor + " " + x + " " + y;
+            msg = "REVERSE" + " " + myColor + " " + x + " " + y;
             out.println(msg);
-            out.flush();
 
-            update(getGraphics());
+            //    update(getGraphics());
             // 小休止を入れる（入れないと複数の石が一斉にひっくり返されてしまう）
             sleep();
             x += vecX;
@@ -330,7 +342,7 @@ public class MyClient extends JFrame implements MouseListener {
 
     private boolean canPutDown(int x, int y) {
         // (x,y)にすでに石が打たれてたら打てない
-        if (buttonArray[y][x].getIcon() != boardIcon)
+        if (buttonArray[y][x].getIcon() == whiteIcon || buttonArray[y][x].getIcon() == blackIcon)
             return false;
         // 8方向のうち一箇所でもひっくり返せればこの場所に打てる
         // ひっくり返せるかどうかはもう1つのcanPutDownで調べる
@@ -368,23 +380,27 @@ public class MyClient extends JFrame implements MouseListener {
         if (buttonArray[y][x].getIcon() == myIcon)
             return false;
         // 隣が空白の場合は打てない
-        if (buttonArray[y][x].getIcon() == boardIcon)
+        if (buttonArray[y][x].getIcon() == boardIcon || buttonArray[y][x].getIcon() == canPutIcon)
             return false;
         // さらに隣を調べていく
 
-
-        out.flush();
         x += vecX;
         y += vecY;
         // となりに石がある間ループがまわる
         while (x >= 0 && x < MASU && y >= 0 && y < MASU) {
 
             // 空白が見つかったら打てない（1つもはさめないから）
-            if (buttonArray[y][x].getIcon() == boardIcon)
+            if (buttonArray[y][x].getIcon() == boardIcon || buttonArray[y][x].getIcon() == canPutIcon)
                 return false;
             // 自分の石があればはさめるので打てる
-            if (buttonArray[y][x].getIcon() == myIcon)
+            if (buttonArray[y][x].getIcon() == myIcon) {
+                if (myTurn) {
+                    String msg = "CANPUT" + " " + x + " " + y + " " + vecX + " " + vecY;
+                    out.println(msg);
+                    out.flush();
+                }
                 return true;
+            }
             x += vecX;
             y += vecY;
         }
@@ -392,7 +408,7 @@ public class MyClient extends JFrame implements MouseListener {
         return false;
     }
 
-    public int countCanPutDownStone() {
+    public int countPutDownStone() {
         int count = 0;
 
         for (int y = 0; y < MASU; y++) {
@@ -417,18 +433,15 @@ public class MyClient extends JFrame implements MouseListener {
         Icon theIcon = theButton.getIcon();//theIconには，現在のボタンに設定されたアイコンが入る
         System.out.println(theIcon);//デバッグ（確認用）に，クリックしたアイコンの名前を出力する
 
-        if (myTurn&&endGame()==false) {
+        if (myTurn && !endGame()) {
             if (canPutDown(x, y)) {
 
-                String msg = "PUSH" + " " + x + " " + y;
+                msg = "PUSH" + " " + x + " " + y;
                 out.println(msg);//送信データをバッファに書き出す
                 msg = "FLIP" + " " + myColor + " " + x + " " + y;
                 out.println(msg);
-
                 reverse(x, y);
-
                 out.flush();
-                repaint();//オブジェクトの再描画を行う
 
             } else {
                 System.out.println("そこには配置できません");
