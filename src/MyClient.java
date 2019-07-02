@@ -4,9 +4,21 @@ import javax.swing.*;
 import java.lang.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Optional;
 
 //public class MyClient extends JFrame implements MouseListener,MouseMotionListener {
+
+ class Actor{
+    public static int hp;
+    public static int maxhp;
+
+    void status(int hp, int maxhp){
+        this.hp = hp;
+        this.maxhp = maxhp;
+    }
+}
+
+
+
 public class MyClient extends JFrame implements MouseListener {
     private JButton buttonArray[][];//ボタン用の配列
     private Container c;
@@ -14,13 +26,9 @@ public class MyClient extends JFrame implements MouseListener {
     private ImageIcon myIcon, yourIcon;
     private int myColor;
     private boolean myTurn;
-    private int searchCanPut;
     private final int MASU = 8;
-    private static final int END_NUMBER = 64;
     private String msg;
     private boolean endGame=false;
-
-    private int putCounter;
 
     PrintWriter out;//出力用のライター
 
@@ -95,6 +103,9 @@ public class MyClient extends JFrame implements MouseListener {
                 String myNumber = br.readLine();
                 int myNumberInt = Integer.parseInt(myNumber);
 
+                Actor player =new Actor();
+                player.status(1000,1000);
+
                 whichCome(myNumberInt);
                 whichColor(myColor);
 
@@ -152,7 +163,10 @@ public class MyClient extends JFrame implements MouseListener {
                         }
 
                         if (cmd.equals("PUSH")) {
-
+                            System.out.println(player.hp);
+                            if(myTurn) {
+                                player.hp -= 10;
+                            }
                             int x = Integer.parseInt(inputTokens[1]);
                             int y = Integer.parseInt(inputTokens[2]);
 
@@ -247,6 +261,13 @@ public class MyClient extends JFrame implements MouseListener {
         MyClient net = new MyClient();
         net.setVisible(true);
     }
+
+
+
+
+
+
+    //----------------------------------------------------------------------------------------------
 
     private void whichCome(int num) {
         if (num % 2 != 0) {
@@ -509,4 +530,6 @@ public class MyClient extends JFrame implements MouseListener {
 //        int theMLocY = e.getY();//マウスのy座標を得る
 //        System.out.println(theMLocX+","+theMLocY);//コンソールに出力する
 //    }
+
+    
 }
