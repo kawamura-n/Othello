@@ -7,23 +7,42 @@ import java.awt.event.*;
 
 //public class MyClient extends JFrame implements MouseListener,MouseMotionListener {
 
- class Actor{
-    public static int hp;
-    public static int maxhp;
+ class Actor {
+     public static int hp;
+     public static int Maxhp;
 
-    void status(int hp, int maxhp){
-        this.hp = hp;
-        this.maxhp = maxhp;
-    }
-}
+     void status(int hp, int maxhp) {
+         this.hp = hp;
+         this.Maxhp = maxhp;
+     }
+ }
 
 
 
 public class MyClient extends JFrame implements MouseListener {
-    private JButton buttonArray[][];//ボタン用の配列
+
     private Container c;
+
+    private JPanel player_Panel;
+    private JLabel player_HPGAUGE;
+    private JLabel player_MAXHP;
+    private JLabel player_NAME;
+    private JLabel player_HP;
+
+    private JLayeredPane mainPane;
+    private JLabel str_yourTurn;
+
+    private JButton buttonArray[][];//ボタン用の配列
+
+    private JPanel enemy_Panel;
+    private JLabel enemy_HPGAUGE;
+    private JLabel enemy_MAXHP;
+    private JLabel enemy_NAME;
+    private JLabel enemy_HP;
+
     private ImageIcon blackIcon, whiteIcon, boardIcon, canPutIcon;
-    private ImageIcon myIcon, yourIcon;
+    private ImageIcon reverseIcon1,reverseIcon2,reverseIcon3,reverseIcon4,reverseIcon5,reverseIcon6,reverseIcon7,reverseIcon8,reverseIcon9,reverseIcon10,reverseIcon11,reverseIcon12,reverseIcon13,reverseIcon14,reverseIcon15,reverseIcon16,reverseIcon17,reverseIcon18,reverseIcon19,reverseIcon20,reverseIcon21,reverseIcon22,reverseIcon23,reverseIcon24;
+    private ImageIcon myIcon, yourIcon,hpGauge;
     private int myColor;
     private boolean myTurn;
     private final int MASU = 8;
@@ -42,29 +61,135 @@ public class MyClient extends JFrame implements MouseListener {
         //ウィンドウを作成する
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//ウィンドウを閉じるときに，正しく閉じるように設定する
         setTitle("MyClient");//ウィンドウのタイトルを設定する
-        setSize(500, 500);//ウィンドウのサイズを設定する
+        setSize(375, 500);//ウィンドウのサイズを設定する
         c = getContentPane();//フレームのペインを取得する
 
         //アイコンの設定
         whiteIcon = new ImageIcon("../assets/white.jpg");
         blackIcon = new ImageIcon("../assets/black.jpg");
-        boardIcon = new ImageIcon("../assets/green-frame.jpg");
-        canPutIcon = new ImageIcon("../assets/can-put-down.png");
+        boardIcon = new ImageIcon("../assets/frame.jpg");
+        hpGauge = new ImageIcon("../assets/hpguage/hp.jpg");
+        canPutIcon = new ImageIcon("../assets/can-put-down.jpg");
+
+        reverseIcon1 = new ImageIcon("../assets/reverse/reverse_0001.jpg");
+        reverseIcon2 = new ImageIcon("../assets/reverse/reverse_0002.jpg");
+        reverseIcon3 = new ImageIcon("../assets/reverse/reverse_0003.jpg");
+        reverseIcon4 = new ImageIcon("../assets/reverse/reverse_0004.jpg");
+        reverseIcon5 = new ImageIcon("../assets/reverse/reverse_0005.jpg");
+        reverseIcon6 = new ImageIcon("../assets/reverse/reverse_0006.jpg");
+        reverseIcon7 = new ImageIcon("../assets/reverse/reverse_0007.jpg");
+        reverseIcon8 = new ImageIcon("../assets/reverse/reverse_0008.jpg");
+        reverseIcon9 = new ImageIcon("../assets/reverse/reverse_0009.jpg");
+        reverseIcon10 = new ImageIcon("../assets/reverse/reverse_0010.jpg");
+        reverseIcon11 = new ImageIcon("../assets/reverse/reverse_0011.jpg");
+        reverseIcon12 = new ImageIcon("../assets/reverse/reverse_0012.jpg");
+        reverseIcon13 = new ImageIcon("../assets/reverse/reverse_0013.jpg");
+        reverseIcon14 = new ImageIcon("../assets/reverse/reverse_0014.jpg");
+        reverseIcon15 = new ImageIcon("../assets/reverse/reverse_0015.jpg");
+        reverseIcon16 = new ImageIcon("../assets/reverse/reverse_0016.jpg");
+        reverseIcon17 = new ImageIcon("../assets/reverse/reverse_0017.jpg");
+        reverseIcon18 = new ImageIcon("../assets/reverse/reverse_0018.jpg");
+        reverseIcon19 = new ImageIcon("../assets/reverse/reverse_0019.jpg");
+        reverseIcon20 = new ImageIcon("../assets/reverse/reverse_0020.jpg");
+        reverseIcon21 = new ImageIcon("../assets/reverse/reverse_0021.jpg");
+        reverseIcon22 = new ImageIcon("../assets/reverse/reverse_0022.jpg");
+        reverseIcon23 = new ImageIcon("../assets/reverse/reverse_0023.jpg");
+        reverseIcon24 = new ImageIcon("../assets/reverse/reverse_0024.jpg");
 
         c.setLayout(null);//自動レイアウトの設定を行わない
+
+        Actor player = new Actor();
+        Actor enemy = new Actor();
+        player.status(1000,1000);
+        enemy.status(1000,1000);
+
+
+        //敵
+        enemy_Panel = new JPanel();
+        enemy_Panel.setLayout(null);
+
+        enemy_NAME = new JLabel("enemy");
+        enemy_NAME.setPreferredSize(new Dimension(130,80));
+        enemy_NAME.setBounds(10,5,80,20);
+
+        String enemy_maxhp = Integer.toString(enemy.Maxhp);
+        enemy_MAXHP = new JLabel("/"+(enemy_maxhp));
+        enemy_MAXHP.setBounds(320,55,100,10);
+
+        String enemy_hp = String.valueOf(enemy.hp);
+        enemy_HP = new JLabel(enemy_hp);
+        enemy_HP.setBounds(280,55,100,10);
+
+        enemy_HPGAUGE = new JLabel(hpGauge);
+        enemy_HPGAUGE.setBounds(0,55,375,10);
+
+        enemy_Panel.add(enemy_HP);
+        enemy_Panel.add(enemy_MAXHP);
+        enemy_Panel.add(enemy_NAME);
+        enemy_Panel.add(enemy_HPGAUGE);
+        enemy_Panel.setBounds(0,0,375,70);
+        c.add(enemy_Panel);
+
+
+        mainPane = new JLayeredPane();
+
         //ボタンの生成
-        buttonArray = new JButton[MASU][MASU];//ボタンの配列を５個作成する[0]から[4]まで使える
+        buttonArray = new JButton[MASU][MASU];
 
         for (int y = 0; y < MASU; y++) {
             for (int x = 0; x < MASU; x++) {
                 buttonArray[y][x] = new JButton(boardIcon);//ボタンにアイコンを設定する
-                c.add(buttonArray[y][x]);//ペインに貼り付ける
-                buttonArray[y][x].setBounds(x * 45, 10 + y * 45, 45, 45);//ボタンの大きさと位置を設定する．(x座標，y座標,xの幅,yの幅）
+              //  c.add(buttonArray[y][x]);//ペインに貼り付ける
+                buttonArray[y][x].setBounds(x * 45, y * 45, 45, 45);//ボタンの大きさと位置を設定する．(x座標，y座標,xの幅,yの幅）
+                mainPane.add(buttonArray[y][x]);
+                mainPane.setLayer(buttonArray[y][x] , 0);
                 buttonArray[y][x].addMouseListener(this);//ボタンをマウスでさわったときに反応するようにする
                 //               buttonArray[y][x].addMouseMotionListener(this);//ボタンをマウスで動かそうとしたときに反応するようにする
                 buttonArray[y][x].setActionCommand(Integer.toString(y * MASU + x));
             }
         }
+
+        //文字表示
+
+        str_yourTurn = new JLabel("yourTurn");
+        str_yourTurn.setPreferredSize(new Dimension(200,200));
+        str_yourTurn.setBounds(80,80,200,200);
+        mainPane.setLayer(str_yourTurn , 1);
+
+//        str_yourTurn.setOpaque(true);
+//        str_yourTurn.setBackground(Color.BLACK);
+
+        mainPane.add(str_yourTurn);
+
+        mainPane.setBounds(0,70,375,360);
+        c.add(mainPane);
+
+        //player
+        player_Panel = new JPanel();
+        player_Panel.setLayout(null);
+
+//        player_NAME = new JLabel(myName);
+//        player_NAME.setPreferredSize(new Dimension(130,80));
+//        player_NAME.setBounds(5,10,80,20);
+
+        String player_maxhp = Integer.toString(player.Maxhp);
+        player_MAXHP = new JLabel("/"+(player_maxhp));
+        player_MAXHP.setBounds(320,5,100,10);
+
+        String player_hp = String.valueOf(player.hp);
+        player_HP = new JLabel(player_hp);
+        player_HP.setBounds(280,5,100,10);
+
+        player_HPGAUGE = new JLabel(hpGauge);
+        player_HPGAUGE.setBounds(0,5,375,10);
+
+        player_Panel.add(player_HP);
+        player_Panel.add(player_MAXHP);
+//        player_Panel.add(player_NAME);
+        player_Panel.add(player_HPGAUGE);
+        player_Panel.setBounds(0,430,375,70);
+
+        c.add(player_Panel);
 
         //サーバに接続する
         Socket socket = null;
@@ -93,18 +218,22 @@ public class MyClient extends JFrame implements MouseListener {
             myName = n;
         }
 
+        private void sleep() {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         //通信状況を監視し，受信データによって動作する
         public void run() {
             try {
                 InputStreamReader sisr = new InputStreamReader(socket.getInputStream());
                 BufferedReader br = new BufferedReader(sisr);
                 out = new PrintWriter(socket.getOutputStream(), true);
-                out.println(myName);//接続の最初に名前を送る
                 String myNumber = br.readLine();
                 int myNumberInt = Integer.parseInt(myNumber);
-
-                Actor player =new Actor();
-                player.status(1000,1000);
 
                 whichCome(myNumberInt);
                 whichColor(myColor);
@@ -114,9 +243,15 @@ public class MyClient extends JFrame implements MouseListener {
                 buttonArray[4][4].setIcon(whiteIcon);
                 buttonArray[3][4].setIcon(blackIcon);
 
+                if(myTurn){
+                    buttonArray[3][2].setIcon(canPutIcon);
+                    buttonArray[2][3].setIcon(canPutIcon);
+                    buttonArray[5][4].setIcon(canPutIcon);
+                    buttonArray[4][5].setIcon(canPutIcon);
+                }
 
                 while (true) {
-
+                    
                     String inputLine = br.readLine();//データを一行分だけ読み込んでみる
                     if (inputLine != null) {//読み込んだときにデータが読み込まれたかどうかをチェックする
                         System.out.println(inputLine);//デバッグ（動作確認用）にコンソールに出力する
@@ -159,14 +294,11 @@ public class MyClient extends JFrame implements MouseListener {
                                     }
                                 }
                             }
-
                         }
 
                         if (cmd.equals("PUSH")) {
-                            System.out.println(player.hp);
-                            if(myTurn) {
-                                player.hp -= 10;
-                            }
+                        //    System.out.println(player.hp);
+
                             int x = Integer.parseInt(inputTokens[1]);
                             int y = Integer.parseInt(inputTokens[2]);
 
@@ -204,8 +336,60 @@ public class MyClient extends JFrame implements MouseListener {
                             int y = Integer.parseInt(inputTokens[3]);
 
                             if (colorNumInt == 1) {
+                                buttonArray[y][x].setIcon(reverseIcon1);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon2);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon3);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon4);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon5);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon6);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon7);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon8);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon9);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon10);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon11);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon12);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon13);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon14);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon15);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon16);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon17);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon18);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon19);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon20);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon21);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon22);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon23);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon24);sleep();
+
                                 buttonArray[y][x].setIcon(whiteIcon);
+
                             } else {
+
+                                buttonArray[y][x].setIcon(reverseIcon24);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon23);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon22);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon21);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon20);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon19);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon18);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon17);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon16);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon15);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon14);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon13);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon12);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon11);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon10);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon9);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon8);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon7);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon6);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon5);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon4);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon3);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon2);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon1);sleep();
+
                                 buttonArray[y][x].setIcon(blackIcon);
                             }
 
@@ -348,11 +532,9 @@ public class MyClient extends JFrame implements MouseListener {
         }
     }
 
-    private static final int SLEEP_TIME = 50;
-
     private void sleep() {
         try {
-            Thread.sleep(SLEEP_TIME);
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -444,8 +626,7 @@ public class MyClient extends JFrame implements MouseListener {
                 }
             }
         }
-
-        if (count == 0) {
+        if (count == 0 ) {
             msg = "PASS";
             out.println(msg);//送信データをバッファに書き出す
             out.flush();
