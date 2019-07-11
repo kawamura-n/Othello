@@ -4,9 +4,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-class MyServer{
+class MyServer {
 
-    private static int maxConnection=100;//最大接続数
+    private static int maxConnection = 100;//最大接続数
     private static Socket[] incoming;//受付用のソケット
     private static boolean[] flag;//接続中かどうかのフラグ
     private static InputStreamReader[] isr;//入力ストリーム用の配列
@@ -16,19 +16,19 @@ class MyServer{
     private static int member;//接続しているメンバーの数
 
     //全員にメッセージを送る
-    public static void SendAll(String str, String myName){
+    public static void SendAll(String str, String myName) {
         //送られた来たメッセージを接続している全員に配る
-        for(int i=1;i<=member;i++){
-            if(flag[i] == true){
+        for (int i = 1; i <= member; i++) {
+            if (flag[i] == true) {
                 out[i].println(str);
                 out[i].flush();//バッファをはき出す＝＞バッファにある全てのデータをすぐに送信する
-                System.out.println("Send messages to client No."+i);
+                System.out.println("Send messages to client No." + i);
             }
         }
     }
 
     //フラグの設定を行う
-    public static void SetFlag(int n, boolean value){
+    public static void SetFlag(int n, boolean value) {
         flag[n] = value;
     }
 
@@ -58,7 +58,7 @@ class MyServer{
                 out[n] = new PrintWriter(incoming[n].getOutputStream(), true);
 
                 myClientProcThread[n] = new ClientProcThread(n, incoming[n], isr[n], in[n], out[n]);//必要なパラメータを渡しスレッドを作成
-                myClientProcThread[n] .start();//スレッドを開始する
+                myClientProcThread[n].start();//スレッドを開始する
                 member = n;//メンバーの数を更新する
                 n++;
             }

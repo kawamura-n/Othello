@@ -7,16 +7,15 @@ import java.awt.event.*;
 
 //public class MyClient extends JFrame implements MouseListener,MouseMotionListener {
 
- class Actor {
-     public static int hp;
-     public static int Maxhp;
+class Actor {
+    public static int hp;
+    public static int Maxhp;
 
-     void status(int hp, int maxhp) {
-         this.hp = hp;
-         this.Maxhp = maxhp;
-     }
- }
-
+    void status(int hp, int maxhp) {
+        this.hp = hp;
+        this.Maxhp = maxhp;
+    }
+}
 
 
 public class MyClient extends JFrame implements MouseListener {
@@ -41,13 +40,13 @@ public class MyClient extends JFrame implements MouseListener {
     private JLabel enemy_HP;
 
     private ImageIcon blackIcon, whiteIcon, boardIcon, canPutIcon;
-    private ImageIcon reverseIcon1,reverseIcon2,reverseIcon3,reverseIcon4,reverseIcon5,reverseIcon6,reverseIcon7,reverseIcon8,reverseIcon9,reverseIcon10,reverseIcon11,reverseIcon12,reverseIcon13,reverseIcon14,reverseIcon15,reverseIcon16,reverseIcon17,reverseIcon18,reverseIcon19,reverseIcon20,reverseIcon21,reverseIcon22,reverseIcon23,reverseIcon24;
-    private ImageIcon myIcon, yourIcon,hpGauge;
+    private ImageIcon reverseIcon1, reverseIcon2, reverseIcon3, reverseIcon4, reverseIcon5, reverseIcon6, reverseIcon7, reverseIcon8, reverseIcon9, reverseIcon10, reverseIcon11, reverseIcon12, reverseIcon13, reverseIcon14, reverseIcon15, reverseIcon16, reverseIcon17, reverseIcon18, reverseIcon19, reverseIcon20, reverseIcon21, reverseIcon22, reverseIcon23, reverseIcon24;
+    private ImageIcon myIcon, yourIcon, hpGauge;
     private int myColor;
     private boolean myTurn;
     private final int MASU = 8;
     private String msg;
-    private boolean endGame=false;
+    private boolean endGame = false;
 
     PrintWriter out;//出力用のライター
 
@@ -100,8 +99,8 @@ public class MyClient extends JFrame implements MouseListener {
 
         Actor player = new Actor();
         Actor enemy = new Actor();
-        player.status(1000,1000);
-        enemy.status(1000,1000);
+        player.status(1000, 1000);
+        enemy.status(1000, 1000);
 
 
         //敵
@@ -109,25 +108,25 @@ public class MyClient extends JFrame implements MouseListener {
         enemy_Panel.setLayout(null);
 
         enemy_NAME = new JLabel("enemy");
-        enemy_NAME.setPreferredSize(new Dimension(130,80));
-        enemy_NAME.setBounds(10,5,80,20);
+        enemy_NAME.setPreferredSize(new Dimension(130, 80));
+        enemy_NAME.setBounds(10, 5, 80, 20);
 
         String enemy_maxhp = Integer.toString(enemy.Maxhp);
-        enemy_MAXHP = new JLabel("/"+(enemy_maxhp));
-        enemy_MAXHP.setBounds(320,55,100,10);
+        enemy_MAXHP = new JLabel("/" + (enemy_maxhp));
+        enemy_MAXHP.setBounds(320, 55, 100, 10);
 
         String enemy_hp = String.valueOf(enemy.hp);
         enemy_HP = new JLabel(enemy_hp);
-        enemy_HP.setBounds(280,55,100,10);
+        enemy_HP.setBounds(280, 55, 100, 10);
 
         enemy_HPGAUGE = new JLabel(hpGauge);
-        enemy_HPGAUGE.setBounds(0,55,375,10);
+        enemy_HPGAUGE.setBounds(0, 55, 375, 10);
 
         enemy_Panel.add(enemy_HP);
         enemy_Panel.add(enemy_MAXHP);
         enemy_Panel.add(enemy_NAME);
         enemy_Panel.add(enemy_HPGAUGE);
-        enemy_Panel.setBounds(0,0,375,70);
+        enemy_Panel.setBounds(0, 0, 375, 70);
         c.add(enemy_Panel);
 
 
@@ -139,10 +138,10 @@ public class MyClient extends JFrame implements MouseListener {
         for (int y = 0; y < MASU; y++) {
             for (int x = 0; x < MASU; x++) {
                 buttonArray[y][x] = new JButton(boardIcon);//ボタンにアイコンを設定する
-              //  c.add(buttonArray[y][x]);//ペインに貼り付ける
+                //  c.add(buttonArray[y][x]);//ペインに貼り付ける
                 buttonArray[y][x].setBounds(x * 45, y * 45, 45, 45);//ボタンの大きさと位置を設定する．(x座標，y座標,xの幅,yの幅）
                 mainPane.add(buttonArray[y][x]);
-                mainPane.setLayer(buttonArray[y][x] , 0);
+                mainPane.setLayer(buttonArray[y][x], 0);
                 buttonArray[y][x].addMouseListener(this);//ボタンをマウスでさわったときに反応するようにする
                 //               buttonArray[y][x].addMouseMotionListener(this);//ボタンをマウスで動かそうとしたときに反応するようにする
                 buttonArray[y][x].setActionCommand(Integer.toString(y * MASU + x));
@@ -152,16 +151,16 @@ public class MyClient extends JFrame implements MouseListener {
         //文字表示
 
         str_yourTurn = new JLabel("yourTurn");
-        str_yourTurn.setPreferredSize(new Dimension(200,200));
-        str_yourTurn.setBounds(80,80,200,200);
-        mainPane.setLayer(str_yourTurn , 1);
+        str_yourTurn.setPreferredSize(new Dimension(200, 200));
+        str_yourTurn.setBounds(80, 80, 200, 200);
+        mainPane.setLayer(str_yourTurn, 1);
 
 //        str_yourTurn.setOpaque(true);
 //        str_yourTurn.setBackground(Color.BLACK);
 
         mainPane.add(str_yourTurn);
 
-        mainPane.setBounds(0,70,375,360);
+        mainPane.setBounds(0, 70, 375, 360);
         c.add(mainPane);
 
         //player
@@ -173,21 +172,21 @@ public class MyClient extends JFrame implements MouseListener {
 //        player_NAME.setBounds(5,10,80,20);
 
         String player_maxhp = Integer.toString(player.Maxhp);
-        player_MAXHP = new JLabel("/"+(player_maxhp));
-        player_MAXHP.setBounds(320,5,100,10);
+        player_MAXHP = new JLabel("/" + (player_maxhp));
+        player_MAXHP.setBounds(320, 5, 100, 10);
 
         String player_hp = String.valueOf(player.hp);
         player_HP = new JLabel(player_hp);
-        player_HP.setBounds(280,5,100,10);
+        player_HP.setBounds(280, 5, 100, 10);
 
         player_HPGAUGE = new JLabel(hpGauge);
-        player_HPGAUGE.setBounds(0,5,375,10);
+        player_HPGAUGE.setBounds(0, 5, 375, 10);
 
         player_Panel.add(player_HP);
         player_Panel.add(player_MAXHP);
 //        player_Panel.add(player_NAME);
         player_Panel.add(player_HPGAUGE);
-        player_Panel.setBounds(0,430,375,70);
+        player_Panel.setBounds(0, 430, 375, 70);
 
         c.add(player_Panel);
 
@@ -243,7 +242,7 @@ public class MyClient extends JFrame implements MouseListener {
                 buttonArray[4][4].setIcon(whiteIcon);
                 buttonArray[3][4].setIcon(blackIcon);
 
-                if(myTurn){
+                if (myTurn) {
                     buttonArray[3][2].setIcon(canPutIcon);
                     buttonArray[2][3].setIcon(canPutIcon);
                     buttonArray[5][4].setIcon(canPutIcon);
@@ -251,7 +250,7 @@ public class MyClient extends JFrame implements MouseListener {
                 }
 
                 while (true) {
-                    
+
                     String inputLine = br.readLine();//データを一行分だけ読み込んでみる
                     if (inputLine != null) {//読み込んだときにデータが読み込まれたかどうかをチェックする
                         System.out.println(inputLine);//デバッグ（動作確認用）にコンソールに出力する
@@ -264,9 +263,9 @@ public class MyClient extends JFrame implements MouseListener {
                                 myTurn = false;
                             } else {
                                 myTurn = true;
-                                if(countPutDownStone()){
+                                if (countPutDownStone()) {
                                     String msg = "RESULT";
-                                    endGame=true;
+                                    endGame = true;
                                     out.println(msg);
                                     out.flush();
                                 }
@@ -297,7 +296,7 @@ public class MyClient extends JFrame implements MouseListener {
                         }
 
                         if (cmd.equals("PUSH")) {
-                        //    System.out.println(player.hp);
+                            //    System.out.println(player.hp);
 
                             int x = Integer.parseInt(inputTokens[1]);
                             int y = Integer.parseInt(inputTokens[2]);
@@ -336,59 +335,107 @@ public class MyClient extends JFrame implements MouseListener {
                             int y = Integer.parseInt(inputTokens[3]);
 
                             if (colorNumInt == 1) {
-                                buttonArray[y][x].setIcon(reverseIcon1);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon2);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon3);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon4);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon5);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon6);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon7);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon8);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon9);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon10);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon11);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon12);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon13);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon14);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon15);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon16);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon17);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon18);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon19);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon20);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon21);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon22);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon23);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon24);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon1);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon2);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon3);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon4);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon5);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon6);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon7);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon8);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon9);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon10);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon11);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon12);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon13);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon14);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon15);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon16);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon17);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon18);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon19);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon20);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon21);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon22);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon23);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon24);
+                                sleep();
 
                                 buttonArray[y][x].setIcon(whiteIcon);
 
                             } else {
 
-                                buttonArray[y][x].setIcon(reverseIcon24);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon23);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon22);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon21);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon20);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon19);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon18);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon17);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon16);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon15);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon14);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon13);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon12);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon11);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon10);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon9);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon8);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon7);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon6);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon5);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon4);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon3);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon2);sleep();
-                                buttonArray[y][x].setIcon(reverseIcon1);sleep();
+                                buttonArray[y][x].setIcon(reverseIcon24);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon23);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon22);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon21);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon20);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon19);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon18);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon17);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon16);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon15);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon14);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon13);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon12);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon11);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon10);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon9);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon8);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon7);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon6);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon5);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon4);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon3);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon2);
+                                sleep();
+                                buttonArray[y][x].setIcon(reverseIcon1);
+                                sleep();
 
                                 buttonArray[y][x].setIcon(blackIcon);
                             }
@@ -445,10 +492,6 @@ public class MyClient extends JFrame implements MouseListener {
         MyClient net = new MyClient();
         net.setVisible(true);
     }
-
-
-
-
 
 
     //----------------------------------------------------------------------------------------------
@@ -626,7 +669,7 @@ public class MyClient extends JFrame implements MouseListener {
                 }
             }
         }
-        if (count == 0 ) {
+        if (count == 0) {
             msg = "PASS";
             out.println(msg);//送信データをバッファに書き出す
             out.flush();
@@ -712,5 +755,5 @@ public class MyClient extends JFrame implements MouseListener {
 //        System.out.println(theMLocX+","+theMLocY);//コンソールに出力する
 //    }
 
-    
+
 }
