@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-class MyServer{
+class Server {
 
     private static int maxConnection=100;//最大接続数
     private static Socket[] incoming;//受付用のソケット
