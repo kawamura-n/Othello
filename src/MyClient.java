@@ -5,15 +5,13 @@ import java.lang.*;
 import java.awt.*;
 import java.awt.event.*;
 
-//public class MyClient extends JFrame implements MouseListener,MouseMotionListener {
-
 class Actor {
     public static int hp;
-    public static int Maxhp;
+    public static int maxhp;
 
     void status(int hp, int maxhp) {
-        this.hp = hp;
-        this.Maxhp = maxhp;
+        Actor.hp = hp;
+        Actor.maxhp = maxhp;
     }
 }
 
@@ -40,7 +38,7 @@ public class MyClient extends JFrame implements MouseListener {
     private JLabel enemy_HP;
 
     private ImageIcon blackIcon, whiteIcon, boardIcon, canPutIcon;
-    private ImageIcon reverseIcon1, reverseIcon2, reverseIcon3, reverseIcon4, reverseIcon5, reverseIcon6, reverseIcon7, reverseIcon8, reverseIcon9, reverseIcon10, reverseIcon11, reverseIcon12, reverseIcon13, reverseIcon14, reverseIcon15, reverseIcon16, reverseIcon17, reverseIcon18, reverseIcon19, reverseIcon20, reverseIcon21, reverseIcon22, reverseIcon23, reverseIcon24;
+    private final ImageIcon[] reverseIcon = new ImageIcon[25];
     private ImageIcon myIcon, yourIcon, hpGauge;
     private int myColor;
     private boolean myTurn;
@@ -70,30 +68,9 @@ public class MyClient extends JFrame implements MouseListener {
         hpGauge = new ImageIcon("../assets/hpguage/hp.jpg");
         canPutIcon = new ImageIcon("../assets/can-put-down.jpg");
 
-        reverseIcon1 = new ImageIcon("../assets/reverse/reverse_0001.jpg");
-        reverseIcon2 = new ImageIcon("../assets/reverse/reverse_0002.jpg");
-        reverseIcon3 = new ImageIcon("../assets/reverse/reverse_0003.jpg");
-        reverseIcon4 = new ImageIcon("../assets/reverse/reverse_0004.jpg");
-        reverseIcon5 = new ImageIcon("../assets/reverse/reverse_0005.jpg");
-        reverseIcon6 = new ImageIcon("../assets/reverse/reverse_0006.jpg");
-        reverseIcon7 = new ImageIcon("../assets/reverse/reverse_0007.jpg");
-        reverseIcon8 = new ImageIcon("../assets/reverse/reverse_0008.jpg");
-        reverseIcon9 = new ImageIcon("../assets/reverse/reverse_0009.jpg");
-        reverseIcon10 = new ImageIcon("../assets/reverse/reverse_0010.jpg");
-        reverseIcon11 = new ImageIcon("../assets/reverse/reverse_0011.jpg");
-        reverseIcon12 = new ImageIcon("../assets/reverse/reverse_0012.jpg");
-        reverseIcon13 = new ImageIcon("../assets/reverse/reverse_0013.jpg");
-        reverseIcon14 = new ImageIcon("../assets/reverse/reverse_0014.jpg");
-        reverseIcon15 = new ImageIcon("../assets/reverse/reverse_0015.jpg");
-        reverseIcon16 = new ImageIcon("../assets/reverse/reverse_0016.jpg");
-        reverseIcon17 = new ImageIcon("../assets/reverse/reverse_0017.jpg");
-        reverseIcon18 = new ImageIcon("../assets/reverse/reverse_0018.jpg");
-        reverseIcon19 = new ImageIcon("../assets/reverse/reverse_0019.jpg");
-        reverseIcon20 = new ImageIcon("../assets/reverse/reverse_0020.jpg");
-        reverseIcon21 = new ImageIcon("../assets/reverse/reverse_0021.jpg");
-        reverseIcon22 = new ImageIcon("../assets/reverse/reverse_0022.jpg");
-        reverseIcon23 = new ImageIcon("../assets/reverse/reverse_0023.jpg");
-        reverseIcon24 = new ImageIcon("../assets/reverse/reverse_0024.jpg");
+        for (int i = 0; i < reverseIcon.length; i++) {
+            reverseIcon[i] = new ImageIcon(String.format("../assets/reverse/%02d.jpg", i));
+        }
 
         c.setLayout(null);//自動レイアウトの設定を行わない
 
@@ -111,7 +88,7 @@ public class MyClient extends JFrame implements MouseListener {
         enemy_NAME.setPreferredSize(new Dimension(130, 80));
         enemy_NAME.setBounds(10, 5, 80, 20);
 
-        String enemy_maxhp = Integer.toString(enemy.Maxhp);
+        String enemy_maxhp = Integer.toString(enemy.maxhp);
         enemy_MAXHP = new JLabel("/" + (enemy_maxhp));
         enemy_MAXHP.setBounds(320, 55, 100, 10);
 
@@ -171,7 +148,7 @@ public class MyClient extends JFrame implements MouseListener {
 //        player_NAME.setPreferredSize(new Dimension(130,80));
 //        player_NAME.setBounds(5,10,80,20);
 
-        String player_maxhp = Integer.toString(player.Maxhp);
+        String player_maxhp = Integer.toString(player.maxhp);
         player_MAXHP = new JLabel("/" + (player_maxhp));
         player_MAXHP.setBounds(320, 5, 100, 10);
 
@@ -335,108 +312,17 @@ public class MyClient extends JFrame implements MouseListener {
                             int y = Integer.parseInt(inputTokens[3]);
 
                             if (colorNumInt == 1) {
-                                buttonArray[y][x].setIcon(reverseIcon1);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon2);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon3);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon4);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon5);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon6);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon7);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon8);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon9);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon10);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon11);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon12);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon13);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon14);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon15);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon16);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon17);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon18);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon19);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon20);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon21);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon22);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon23);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon24);
-                                sleep();
-
+                                for (int i = 0; i < reverseIcon.length; i++) {
+                                    buttonArray[y][x].setIcon(reverseIcon[i]);
+                                    sleep();
+                                }
                                 buttonArray[y][x].setIcon(whiteIcon);
 
                             } else {
-
-                                buttonArray[y][x].setIcon(reverseIcon24);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon23);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon22);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon21);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon20);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon19);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon18);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon17);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon16);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon15);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon14);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon13);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon12);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon11);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon10);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon9);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon8);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon7);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon6);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon5);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon4);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon3);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon2);
-                                sleep();
-                                buttonArray[y][x].setIcon(reverseIcon1);
-                                sleep();
-
+                                for (int i = reverseIcon.length - 1; 0 <= i; i--) {
+                                    buttonArray[y][x].setIcon(reverseIcon[i]);
+                                    sleep();
+                                }
                                 buttonArray[y][x].setIcon(blackIcon);
                             }
 
@@ -464,7 +350,7 @@ public class MyClient extends JFrame implements MouseListener {
                 Counter counter;
                 counter = countStone();
                 if (myIcon == blackIcon) {
-                    if (counter.blackCount > counter.blackCount) {
+                    if (counter.whiteCount < counter.blackCount) {
                         System.out.println("you win");
                     } else if (counter.blackCount < counter.whiteCount) {
                         System.out.println("you lose");
@@ -472,7 +358,7 @@ public class MyClient extends JFrame implements MouseListener {
                         System.out.println("引き分け");
                     }
                 } else {
-                    if (counter.whiteCount > counter.blackCount) {
+                    if (counter.blackCount < counter.whiteCount) {
                         System.out.println("you win");
                     } else if (counter.whiteCount < counter.blackCount) {
                         System.out.println("you lose");
