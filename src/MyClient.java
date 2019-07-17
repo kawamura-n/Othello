@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.lang.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
-//public class Client extends JFrame implements MouseListener,MouseMotionListener {
-
+//public class MyClient extends JFrame implements MouseListener,MouseMotionListener {
 class Actor {
     public static int hp;
     public static int Maxhp;
@@ -17,26 +17,7 @@ class Actor {
     }
 }
 
-class PieceA {
-    boolean exist = true;
-    int x;
-    int y;
-    int num = 4;
-    boolean live = true;
-
-    void put(int x, int y) {
-        this.x = x;
-        this.y = y;
-        num--;
-    }
-
-    void die(int x, int y) {
-        live = false;
-    }
-}
-
-
-public class Client extends JFrame implements MouseListener {
+public class MyClient extends JFrame implements MouseListener {
 
     private Container c;
 
@@ -53,7 +34,6 @@ public class Client extends JFrame implements MouseListener {
     private JButton othello_piece_C;
     private JButton othello_piece_D;
     private JButton othello_piece_Normal;
-
 
     private JLayeredPane mainPane;
     private JLabel str_main;
@@ -81,148 +61,20 @@ public class Client extends JFrame implements MouseListener {
     private ImageIcon boar_black_noSelectedIcon, boar_black_selectedIcon, boar_white_noSelectedIcon, boar_white_selectedIcon;
     private ImageIcon horse_black_noSelectedIcon, horse_black_selectedIcon, horse_white_noSelectedIcon, horse_white_selectedIcon;
     private ImageIcon bird_black_noSelectedIcon, bird_black_selectedIcon, bird_white_noSelectedIcon, bird_white_selectedIcon;
+    private ImageIcon cat_white_putIcon, boar_white_putIcon, horse_white_putIcon, bird_white_putIcon, cat_black_putIcon, boar_black_putIcon, horse_black_putIcon, bird_black_putIcon;
 
-
-    private ImageIcon reverseIcon1 = new ImageIcon("../assets/reverse/reverse_0001.jpg");
-    private ImageIcon reverseIcon2 = new ImageIcon("../assets/reverse/reverse_0002.jpg");
-    private ImageIcon reverseIcon3 = new ImageIcon("../assets/reverse/reverse_0003.jpg");
-    private ImageIcon reverseIcon4 = new ImageIcon("../assets/reverse/reverse_0004.jpg");
-    private ImageIcon reverseIcon5 = new ImageIcon("../assets/reverse/reverse_0005.jpg");
-    private ImageIcon reverseIcon6 = new ImageIcon("../assets/reverse/reverse_0006.jpg");
-    private ImageIcon reverseIcon7 = new ImageIcon("../assets/reverse/reverse_0007.jpg");
-    private ImageIcon reverseIcon8 = new ImageIcon("../assets/reverse/reverse_0008.jpg");
-    private ImageIcon reverseIcon9 = new ImageIcon("../assets/reverse/reverse_0009.jpg");
-    private ImageIcon reverseIcon10 = new ImageIcon("../assets/reverse/reverse_0010.jpg");
-    private ImageIcon reverseIcon11 = new ImageIcon("../assets/reverse/reverse_0011.jpg");
-    private ImageIcon reverseIcon12 = new ImageIcon("../assets/reverse/reverse_0012.jpg");
-    private ImageIcon reverseIcon13 = new ImageIcon("../assets/reverse/reverse_0013.jpg");
-    private ImageIcon reverseIcon14 = new ImageIcon("../assets/reverse/reverse_0014.jpg");
-    private ImageIcon reverseIcon15 = new ImageIcon("../assets/reverse/reverse_0015.jpg");
-    private ImageIcon reverseIcon16 = new ImageIcon("../assets/reverse/reverse_0016.jpg");
-    private ImageIcon reverseIcon17 = new ImageIcon("../assets/reverse/reverse_0017.jpg");
-    private ImageIcon reverseIcon18 = new ImageIcon("../assets/reverse/reverse_0018.jpg");
-    private ImageIcon reverseIcon19 = new ImageIcon("../assets/reverse/reverse_0019.jpg");
-    private ImageIcon reverseIcon20 = new ImageIcon("../assets/reverse/reverse_0020.jpg");
-    private ImageIcon reverseIcon21 = new ImageIcon("../assets/reverse/reverse_0021.jpg");
-    private ImageIcon reverseIcon22 = new ImageIcon("../assets/reverse/reverse_0022.jpg");
-    private ImageIcon reverseIcon23 = new ImageIcon("../assets/reverse/reverse_0023.jpg");
-    private ImageIcon reverseIcon24 = new ImageIcon("../assets/reverse/reverse_0024.jpg");
-    private ImageIcon[] reverseIcon = {reverseIcon1, reverseIcon2, reverseIcon3, reverseIcon4, reverseIcon5, reverseIcon6, reverseIcon7, reverseIcon8, reverseIcon9, reverseIcon10, reverseIcon11, reverseIcon12, reverseIcon13, reverseIcon14, reverseIcon15, reverseIcon16, reverseIcon17, reverseIcon18, reverseIcon19, reverseIcon20, reverseIcon21, reverseIcon22, reverseIcon23, reverseIcon24};
-
-    private ImageIcon yourturnIcon1 = new ImageIcon("../assets/yourturn/yourturn_0001.png");
-    private ImageIcon yourturnIcon2 = new ImageIcon("../assets/yourturn/yourturn_0002.png");
-    private ImageIcon yourturnIcon3 = new ImageIcon("../assets/yourturn/yourturn_0003.png");
-    private ImageIcon yourturnIcon4 = new ImageIcon("../assets/yourturn/yourturn_0004.png");
-    private ImageIcon yourturnIcon5 = new ImageIcon("../assets/yourturn/yourturn_0005.png");
-    private ImageIcon yourturnIcon6 = new ImageIcon("../assets/yourturn/yourturn_0006.png");
-    private ImageIcon yourturnIcon7 = new ImageIcon("../assets/yourturn/yourturn_0007.png");
-    private ImageIcon yourturnIcon8 = new ImageIcon("../assets/yourturn/yourturn_0008.png");
-    private ImageIcon yourturnIcon9 = new ImageIcon("../assets/yourturn/yourturn_0009.png");
-    private ImageIcon yourturnIcon10 = new ImageIcon("../assets/yourturn/yourturn_0010.png");
-    private ImageIcon yourturnIcon11 = new ImageIcon("../assets/yourturn/yourturn_0011.png");
-    private ImageIcon yourturnIcon12 = new ImageIcon("../assets/yourturn/yourturn_0012.png");
-    private ImageIcon yourturnIcon13 = new ImageIcon("../assets/yourturn/yourturn_0013.png");
-    private ImageIcon yourturnIcon14 = new ImageIcon("../assets/yourturn/yourturn_0014.png");
-    private ImageIcon yourturnIcon15 = new ImageIcon("../assets/yourturn/yourturn_0015.png");
-    private ImageIcon yourturnIcon16 = new ImageIcon("../assets/yourturn/yourturn_0016.png");
-    private ImageIcon yourturnIcon17 = new ImageIcon("../assets/yourturn/yourturn_0017.png");
-    private ImageIcon yourturnIcon18 = new ImageIcon("../assets/yourturn/yourturn_0018.png");
-    private ImageIcon yourturnIcon19 = new ImageIcon("../assets/yourturn/yourturn_0019.png");
-    private ImageIcon yourturnIcon20 = new ImageIcon("../assets/yourturn/yourturn_0020.png");
-    private ImageIcon yourturnIcon21 = new ImageIcon("../assets/yourturn/yourturn_0021.png");
-    private ImageIcon yourturnIcon22 = new ImageIcon("../assets/yourturn/yourturn_0022.png");
-    private ImageIcon yourturnIcon23 = new ImageIcon("../assets/yourturn/yourturn_0023.png");
-    private ImageIcon yourturnIcon24 = new ImageIcon("../assets/yourturn/yourturn_0024.png");
-    private ImageIcon yourturnIcon25 = new ImageIcon("../assets/yourturn/yourturn_0025.png");
-    private ImageIcon[] yourturnIcon = {yourturnIcon1, yourturnIcon2, yourturnIcon3, yourturnIcon4, yourturnIcon5, yourturnIcon6, yourturnIcon7, yourturnIcon8, yourturnIcon9, yourturnIcon10, yourturnIcon11, yourturnIcon12, yourturnIcon13, yourturnIcon14, yourturnIcon15, yourturnIcon16, yourturnIcon17, yourturnIcon18, yourturnIcon19, yourturnIcon20, yourturnIcon21, yourturnIcon22, yourturnIcon23, yourturnIcon24, yourturnIcon25};
-
-    private ImageIcon youwinIcon1 = new ImageIcon("../assets/youwin/youwin_0000.png");
-    private ImageIcon youwinIcon2 = new ImageIcon("../assets/youwin/youwin_0001.png");
-    private ImageIcon youwinIcon3 = new ImageIcon("../assets/youwin/youwin_0002.png");
-    private ImageIcon youwinIcon4 = new ImageIcon("../assets/youwin/youwin_0003.png");
-    private ImageIcon youwinIcon5 = new ImageIcon("../assets/youwin/youwin_0004.png");
-    private ImageIcon youwinIcon6 = new ImageIcon("../assets/youwin/youwin_0005.png");
-    private ImageIcon youwinIcon7 = new ImageIcon("../assets/youwin/youwin_0006.png");
-    private ImageIcon youwinIcon8 = new ImageIcon("../assets/youwin/youwin_0007.png");
-    private ImageIcon youwinIcon9 = new ImageIcon("../assets/youwin/youwin_0008.png");
-    private ImageIcon youwinIcon10 = new ImageIcon("../assets/youwin/youwin_0009.png");
-    private ImageIcon youwinIcon11 = new ImageIcon("../assets/youwin/youwin_0010.png");
-    private ImageIcon youwinIcon12 = new ImageIcon("../assets/youwin/youwin_0011.png");
-    private ImageIcon youwinIcon13 = new ImageIcon("../assets/youwin/youwin_0012.png");
-    private ImageIcon youwinIcon14 = new ImageIcon("../assets/youwin/youwin_0013.png");
-    private ImageIcon youwinIcon15 = new ImageIcon("../assets/youwin/youwin_0014.png");
-    private ImageIcon youwinIcon16 = new ImageIcon("../assets/youwin/youwin_0015.png");
-    private ImageIcon youwinIcon17 = new ImageIcon("../assets/youwin/youwin_0016.png");
-    private ImageIcon youwinIcon18 = new ImageIcon("../assets/youwin/youwin_0017.png");
-    private ImageIcon youwinIcon19 = new ImageIcon("../assets/youwin/youwin_0018.png");
-    private ImageIcon youwinIcon20 = new ImageIcon("../assets/youwin/youwin_0019.png");
-    private ImageIcon youwinIcon21 = new ImageIcon("../assets/youwin/youwin_0020.png");
-    private ImageIcon youwinIcon22 = new ImageIcon("../assets/youwin/youwin_0021.png");
-    private ImageIcon youwinIcon23 = new ImageIcon("../assets/youwin/youwin_0022.png");
-    private ImageIcon youwinIcon24 = new ImageIcon("../assets/youwin/youwin_0023.png");
-    private ImageIcon youwinIcon25 = new ImageIcon("../assets/youwin/youwin_0024.png");
-    private ImageIcon youwinIcon26 = new ImageIcon("../assets/youwin/youwin_0025.png");
-    private ImageIcon youwinIcon27 = new ImageIcon("../assets/youwin/youwin_0026.png");
-    private ImageIcon youwinIcon28 = new ImageIcon("../assets/youwin/youwin_0027.png");
-    private ImageIcon youwinIcon29 = new ImageIcon("../assets/youwin/youwin_0028.png");
-    private ImageIcon youwinIcon30 = new ImageIcon("../assets/youwin/youwin_0029.png");
-    private ImageIcon youwinIcon31 = new ImageIcon("../assets/youwin/youwin_0030.png");
-    private ImageIcon youwinIcon32 = new ImageIcon("../assets/youwin/youwin_0031.png");
-    private ImageIcon youwinIcon33 = new ImageIcon("../assets/youwin/youwin_0032.png");
-    private ImageIcon youwinIcon34 = new ImageIcon("../assets/youwin/youwin_0033.png");
-    private ImageIcon youwinIcon35 = new ImageIcon("../assets/youwin/youwin_0034.png");
-    private ImageIcon youwinIcon36 = new ImageIcon("../assets/youwin/youwin_0035.png");
-    private ImageIcon youwinIcon37 = new ImageIcon("../assets/youwin/youwin_0036.png");
-    private ImageIcon[] youwinIcon = {youwinIcon1, youwinIcon2, youwinIcon3, youwinIcon4, youwinIcon5, youwinIcon6, youwinIcon7, youwinIcon8, youwinIcon9, youwinIcon10, youwinIcon11, youwinIcon12, youwinIcon13, youwinIcon14, youwinIcon15, youwinIcon16, youwinIcon17, youwinIcon18, youwinIcon19, youwinIcon20, youwinIcon21, youwinIcon22, youwinIcon23, youwinIcon24, youwinIcon25, youwinIcon26, youwinIcon27, youwinIcon28, youwinIcon29, youwinIcon30, youwinIcon31, youwinIcon32, youwinIcon33, youwinIcon34, youwinIcon35, youwinIcon36, youwinIcon37};
-
-    private ImageIcon youloseIcon1 = new ImageIcon("../assets/youlose/youlose_0000.png");
-    private ImageIcon youloseIcon2 = new ImageIcon("../assets/youlose/youlose_0001.png");
-    private ImageIcon youloseIcon3 = new ImageIcon("../assets/youlose/youlose_0002.png");
-    private ImageIcon youloseIcon4 = new ImageIcon("../assets/youlose/youlose_0003.png");
-    private ImageIcon youloseIcon5 = new ImageIcon("../assets/youlose/youlose_0004.png");
-    private ImageIcon youloseIcon6 = new ImageIcon("../assets/youlose/youlose_0005.png");
-    private ImageIcon youloseIcon7 = new ImageIcon("../assets/youlose/youlose_0006.png");
-    private ImageIcon youloseIcon8 = new ImageIcon("../assets/youlose/youlose_0007.png");
-    private ImageIcon youloseIcon9 = new ImageIcon("../assets/youlose/youlose_0008.png");
-    private ImageIcon youloseIcon10 = new ImageIcon("../assets/youlose/youlose_0009.png");
-    private ImageIcon youloseIcon11 = new ImageIcon("../assets/youlose/youlose_0010.png");
-    private ImageIcon youloseIcon12 = new ImageIcon("../assets/youlose/youlose_0011.png");
-    private ImageIcon youloseIcon13 = new ImageIcon("../assets/youlose/youlose_0012.png");
-    private ImageIcon youloseIcon14 = new ImageIcon("../assets/youlose/youlose_0013.png");
-    private ImageIcon youloseIcon15 = new ImageIcon("../assets/youlose/youlose_0014.png");
-    private ImageIcon youloseIcon16 = new ImageIcon("../assets/youlose/youlose_0015.png");
-    private ImageIcon youloseIcon17 = new ImageIcon("../assets/youlose/youlose_0016.png");
-    private ImageIcon youloseIcon18 = new ImageIcon("../assets/youlose/youlose_0017.png");
-    private ImageIcon youloseIcon19 = new ImageIcon("../assets/youlose/youlose_0018.png");
-    private ImageIcon youloseIcon20 = new ImageIcon("../assets/youlose/youlose_0019.png");
-    private ImageIcon youloseIcon21 = new ImageIcon("../assets/youlose/youlose_0020.png");
-    private ImageIcon youloseIcon22 = new ImageIcon("../assets/youlose/youlose_0021.png");
-    private ImageIcon youloseIcon23 = new ImageIcon("../assets/youlose/youlose_0022.png");
-    private ImageIcon youloseIcon24 = new ImageIcon("../assets/youlose/youlose_0023.png");
-    private ImageIcon youloseIcon25 = new ImageIcon("../assets/youlose/youlose_0024.png");
-    private ImageIcon youloseIcon26 = new ImageIcon("../assets/youlose/youlose_0025.png");
-    private ImageIcon youloseIcon27 = new ImageIcon("../assets/youlose/youlose_0026.png");
-    private ImageIcon youloseIcon28 = new ImageIcon("../assets/youlose/youlose_0027.png");
-    private ImageIcon youloseIcon29 = new ImageIcon("../assets/youlose/youlose_0028.png");
-    private ImageIcon youloseIcon30 = new ImageIcon("../assets/youlose/youlose_0029.png");
-    private ImageIcon youloseIcon31 = new ImageIcon("../assets/youlose/youlose_0030.png");
-    private ImageIcon youloseIcon32 = new ImageIcon("../assets/youlose/youlose_0031.png");
-    private ImageIcon youloseIcon33 = new ImageIcon("../assets/youlose/youlose_0032.png");
-    private ImageIcon youloseIcon34 = new ImageIcon("../assets/youlose/youlose_0033.png");
-    private ImageIcon youloseIcon35 = new ImageIcon("../assets/youlose/youlose_0034.png");
-    private ImageIcon youloseIcon36 = new ImageIcon("../assets/youlose/youlose_0035.png");
-    private ImageIcon youloseIcon37 = new ImageIcon("../assets/youlose/youlose_0036.png");
-    private ImageIcon youloseIcon38 = new ImageIcon("../assets/youlose/youlose_0037.png");
-    private ImageIcon youloseIcon39 = new ImageIcon("../assets/youlose/youlose_0038.png");
-    private ImageIcon youloseIcon40 = new ImageIcon("../assets/youlose/youlose_0039.png");
-    private ImageIcon[] youloseIcon = {youloseIcon1, youloseIcon2, youloseIcon3, youloseIcon4, youloseIcon5, youloseIcon6, youloseIcon7, youloseIcon8, youloseIcon9, youloseIcon10, youloseIcon11, youloseIcon12, youloseIcon13, youloseIcon14, youloseIcon15, youloseIcon16, youloseIcon17, youloseIcon18, youloseIcon19, youloseIcon20, youloseIcon21, youloseIcon22, youloseIcon23, youloseIcon24, youloseIcon25, youloseIcon26, youloseIcon27, youloseIcon28, youloseIcon29, youloseIcon30, youloseIcon31, youloseIcon32, youloseIcon33, youloseIcon34, youloseIcon35, youloseIcon36, youloseIcon37, youloseIcon38, youloseIcon39, youloseIcon40};
+    private final ImageIcon[] reverseIcon = new ImageIcon[24];
+    private final ImageIcon[] yourturnIcon = new ImageIcon[25];
+    private final ImageIcon[] youwinIcon = new ImageIcon[37];
+    private final ImageIcon[] youloseIcon = new ImageIcon[40];
 
     private ImageIcon myIcon, yourIcon;
-    private ImageIcon mySelectedIcon,yourSelectedIcon,myNoSelectedIcon,yourNoSelectedIcon;
+    private ImageIcon mySelectedIcon, yourSelectedIcon, myNoSelectedIcon, yourNoSelectedIcon;
     private ImageIcon myNoSelectdCatIcon, mySelectedCatIcon, yourNoSelectedCatIcon, yourSelectedCatIcon;
     private ImageIcon myNoSelectedBoarIcon, mySelectedBoarIcon, yourNoSelectedBoarIcon, yourSelectedBoarIcon;
     private ImageIcon myNoSelectedHorseIcon, mySelectedHorseIcon, yourHorseIcon, yourSelectedHorseIcon;
     private ImageIcon myNoSelectedBirdIcon, mySelectedBirdIcon, yourNoSelectedBirdIcon, yourSelectedBirdIcon;
+    private ImageIcon myPutCatIcon, myPutBoarIcon, myPutHorseIcon, myPutBirdIcon, yourPutCatIcon, yourPutBoarIcon, yourPutHorseIcon, yourPutBirdIcon;
     private ImageIcon hpGauge_green, hpGauge_yellow, hpGauge_red;
     private int myColor;
     private boolean myTurn;
@@ -233,26 +85,38 @@ public class Client extends JFrame implements MouseListener {
     private Actor player = new Actor();
     private Actor enemy = new Actor();
 
-    private float player0_hp;
-    private float player1_hp;
-    private float enemy0_hp;
-    private float enemy1_hp;
 
-    private int selected = 70;
+    private int player0_hp;
+    private int player1_hp;
+    private int enemy0_hp;
+    private int enemy1_hp;
+
+    private ImageIcon enemyIcon;
+    private JLabel enemy_Icon;
+
+    private int mySelected = 70;
+    private int yourSelected = 70;
+    private int blackChange = mySelected;
+    private int whiteChange = yourSelected;
+
+    private int number = 0;
+    private int selected;
+    private int maxHP;
 
     PrintWriter out;//出力用のライター
 
-    public Client() {
+    public MyClient() {
         //名前の入力ダイアログを開く
         String myName = JOptionPane.showInputDialog(null, "名前を入力してください", "名前の入力", JOptionPane.QUESTION_MESSAGE);
         if (myName.equals("")) {
             myName = "No name";//名前がないときは，"No name"とする
         }
 
+
         //ウィンドウを作成する
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//ウィンドウを閉じるときに，正しく閉じるように設定する
-        setTitle("Client");//ウィンドウのタイトルを設定する
-        setSize(375, 500);//ウィンドウのサイズを設定する
+        setTitle("MyClient");//ウィンドウのタイトルを設定する
+        setSize(375, 550);//ウィンドウのサイズを設定する
         c = getContentPane();//フレームのペインを取得する
 
         //アイコンの設定
@@ -284,17 +148,41 @@ public class Client extends JFrame implements MouseListener {
         bird_black_noSelectedIcon = new ImageIcon("../assets/animals/bird_black_no_selected.jpg");
         bird_black_selectedIcon = new ImageIcon("../assets/animals/bird_black_selected.jpg");
 
+        cat_white_putIcon = new ImageIcon("../assets/small_animals/cat_white_no_selected.jpg");
+        cat_black_putIcon = new ImageIcon("../assets/small_animals/cat_black_no_selected.jpg");
+        boar_white_putIcon = new ImageIcon("../assets/small_animals/boar_white_no_selected.jpg");
+        boar_black_putIcon = new ImageIcon("../assets/small_animals/boar_black_no_selected.jpg");
+        horse_white_putIcon = new ImageIcon("../assets/small_animals/horse_white_no_selected.jpg");
+        horse_black_putIcon = new ImageIcon("../assets/small_animals/horse_black_no_selected.jpg");
+        bird_white_putIcon = new ImageIcon("../assets/small_animals/bird_white_no_selected.jpg");
+        bird_black_putIcon = new ImageIcon("../assets/small_animals/bird_black_no_selected.jpg");
+
         hpGauge_green = new ImageIcon("../assets/hpguage/hp_green.jpg");
         hpGauge_yellow = new ImageIcon("../assets/hpguage/hp_yellow.jpg");
         hpGauge_red = new ImageIcon("../assets/hpguage/hp_red.jpg");
         canPutIcon = new ImageIcon("../assets/can-put-down.jpg");
         background_black = new ImageIcon("../assets/blackout.jpg");
 
+        for (int i = 0; i < reverseIcon.length; i++) {
+            reverseIcon[i] = new ImageIcon(String.format("../assets/reverse/%02d.jpg", i));
+        }
+
+        for (int i = 0; i < yourturnIcon.length; i++) {
+            yourturnIcon[i] = new ImageIcon(String.format("../assets/yourturn/%02d.png", i));
+        }
+
+        for (int i = 0; i < youwinIcon.length; i++) {
+            youwinIcon[i] = new ImageIcon(String.format("../assets/youwin/%02d.png", i));
+        }
+
+        for (int i = 0; i < youloseIcon.length; i++) {
+            youloseIcon[i] = new ImageIcon(String.format("../assets/youlose/%02d.png", i));
+        }
 
         c.setLayout(null);//自動レイアウトの設定を行わない
 
-        player.status(1000, 1000);
-        enemy.status(1000, 1000);
+        player.status(10000, 10000);
+        enemy.status(10000, 10000);
 
         maxHpGaugeWidth = hpWidth / player.hp;
 
@@ -302,6 +190,7 @@ public class Client extends JFrame implements MouseListener {
         player1_hp = player.hp;
         enemy0_hp = enemy.hp;
         enemy1_hp = enemy.hp;
+        maxHP=enemy1_hp;
 
         //敵
         enemy_Panel = new JPanel();
@@ -311,13 +200,18 @@ public class Client extends JFrame implements MouseListener {
         enemy_NAME.setPreferredSize(new Dimension(130, 80));
         enemy_NAME.setBounds(10, 5, 80, 20);
 
+//        enemyIcon = new ImageIcon("../assets/animal_uma_horse_30960-101x101.jpg");
+//
+//        enemy_Icon = new JLabel(enemyIcon);
+//        enemy_Icon.setBounds(0, 40, 100, 100);
+
         enemy_maxhp = Integer.toString(enemy.Maxhp);
         enemy_MAXHP = new JLabel("/" + (enemy_maxhp));
         enemy_MAXHP.setBounds(320, 55, 100, 10);
 
         enemy_hp = String.valueOf(enemy.hp);
         enemy_HP = new JLabel(enemy_hp);
-        enemy_HP.setBounds(280, 55, 100, 10);
+        enemy_HP.setBounds(285, 55, 100, 10);
 
         enemy_HPGAUGE = new JLabel(hpGauge_green);
         int IntEnemy_hpWidth = (int) hpWidth;
@@ -327,6 +221,7 @@ public class Client extends JFrame implements MouseListener {
         enemy_Panel.add(enemy_MAXHP);
         enemy_Panel.add(enemy_NAME);
         enemy_Panel.add(enemy_HPGAUGE);
+        //  enemy_Panel.add(enemy_Icon);
         enemy_Panel.setBounds(0, 0, IntEnemy_hpWidth, 70);
         c.add(enemy_Panel);
 
@@ -357,7 +252,7 @@ public class Client extends JFrame implements MouseListener {
 
         pieceDescription = new JLabel();
         pieceDescription.setPreferredSize(new Dimension(200, 200));
-        pieceDescription.setBounds(80, 80, 200, 200);
+        pieceDescription.setBounds(0, 80, 375, 50);
         mainPane.setLayer((pieceDescription), 1);
 
         mainPane.add(str_main);
@@ -380,7 +275,7 @@ public class Client extends JFrame implements MouseListener {
 
         player_hp = String.valueOf(player.hp);
         player_HP = new JLabel(player_hp);
-        player_HP.setBounds(280, 5, 100, 10);
+        player_HP.setBounds(285, 5, 100, 10);
 
         player_HPGAUGE = new JLabel(hpGauge_green);
         int IntPlayer_hpWidth = IntEnemy_hpWidth;
@@ -490,7 +385,6 @@ public class Client extends JFrame implements MouseListener {
                 whichCome(myNumberInt);
                 whichColor(myColor);
 
-
                 othello_piece_Normal.setIcon(mySelectedIcon);
                 othello_piece_A.setIcon(myNoSelectdCatIcon);
                 othello_piece_B.setIcon(myNoSelectedBoarIcon);
@@ -540,7 +434,7 @@ public class Client extends JFrame implements MouseListener {
                             int y = Integer.parseInt(inputTokens[2]);
 
                             if (myTurn) {
-                                if (buttonArray[y][x].getIcon() != blackIcon && buttonArray[y][x].getIcon() != whiteIcon) {
+                                if (buttonArray[y][x].getIcon() == boardIcon) {
                                     buttonArray[y][x].setIcon(canPutIcon);
                                 }
 
@@ -555,52 +449,74 @@ public class Client extends JFrame implements MouseListener {
                             }
                         }
 
-                        if (cmd.equals("PUSH")) {
+                        if (cmd.equals("FLIP")) {
                             reversedSum = 0;
 
                             int x = Integer.parseInt(inputTokens[1]);
                             int y = Integer.parseInt(inputTokens[2]);
 
-                            if (selected == 71) {
-                                PieceA pieceA = new PieceA();
-                                pieceA.put(x, y);
-                            }
-
                             if (myTurn) {
                                 //送信元クライアントでの処理
-                                buttonArray[y][x].setIcon(myIcon);
+                                if (mySelected == 70) {
+                                    buttonArray[y][x].setIcon(myIcon);
+                                } else if (mySelected == 71) {
+                                    buttonArray[y][x].setIcon(myPutCatIcon);
+                                } else if(mySelected == 72){
+                                    buttonArray[y][x].setIcon(myPutBoarIcon);
+                                } else if(mySelected == 73){
+                                    buttonArray[y][x].setIcon(myPutHorseIcon);
+                                } else if(mySelected == 74){
+                                    buttonArray[y][x].setIcon(myPutBirdIcon);
+                                }
                             } else {
-                                //送信先クライアントでの処理
-                                buttonArray[y][x].setIcon(yourIcon);
+                                if (yourSelected == 70) {
+                                    buttonArray[y][x].setIcon(yourIcon);
+                                } else if (yourSelected == 71) {
+                                    buttonArray[y][x].setIcon(yourPutCatIcon);
+                                } else if(yourSelected == 72){
+                                    buttonArray[y][x].setIcon(yourPutBoarIcon);
+                                } else if(yourSelected == 73){
+                                    buttonArray[y][x].setIcon(yourPutHorseIcon);
+                                } else if(yourSelected == 74){
+                                    buttonArray[y][x].setIcon(yourPutBirdIcon);
+                                }
                             }
                         }
 
-                        if (cmd.equals("FLIP")) {
+                        if (cmd.equals("SELECT")) {
                             String colorNum = inputTokens[1];//ボタンの名前（番号）の取得
                             int colorNumInt = Integer.parseInt(colorNum);//ボタンの名前を数値に変換する
+                            int buttonNum = Integer.parseInt(inputTokens[2]);
 
-                            int x = Integer.parseInt(inputTokens[2]);
-                            int y = Integer.parseInt(inputTokens[3]);
 
-                            if (colorNumInt == 1) {
-                                buttonArray[y][x].setIcon(whiteIcon);
-                            } else {
-                                buttonArray[y][x].setIcon(blackIcon);
+                            if(colorNumInt==0){
+                                blackChange = buttonNum;
+                            }else{
+                                whiteChange = buttonNum;
                             }
-                        }
 
-                        if (cmd.equals("FLIP")) {
-                            String colorNum = inputTokens[1];//ボタンの名前（番号）の取得
-                            int colorNumInt = Integer.parseInt(colorNum);//ボタンの名前を数値に変換する
-
-                            int x = Integer.parseInt(inputTokens[2]);
-                            int y = Integer.parseInt(inputTokens[3]);
-
-                            if (colorNumInt == 1) {
-                                buttonArray[y][x].setIcon(whiteIcon);
-                            } else {
-                                buttonArray[y][x].setIcon(blackIcon);
+                            if(colorNumInt==0){
+                                if(myTurn){
+                                    mySelected = blackChange;
+                                    yourSelected = whiteChange;
+                                    selected = mySelected;
+                                } else{
+                                    mySelected = whiteChange;
+                                    yourSelected = blackChange;
+                                    selected = yourSelected;
+                                }
+                            }else{
+                                if(myTurn){
+                                    mySelected = whiteChange;
+                                    yourSelected = blackChange;
+                                    selected = mySelected;
+                                }else{
+                                    mySelected = blackChange;
+                                    yourSelected = whiteChange;
+                                    selected = yourSelected;
+                                }
                             }
+                            System.out.println(selected);
                         }
 
                         if (cmd.equals("REVERSE")) {
@@ -631,23 +547,66 @@ public class Client extends JFrame implements MouseListener {
                         }
 
                         if (cmd.equals("REVERSED")) {
-                            double OffensivePower = 200;
-                            double attackMagnification = 1.2;
+                            Counter counter;
+                            counter = countStone();
+                            Random random = new Random();
+                            double OffensivePower = 300;
+                            double attackMagnification = 1.4;
                             for (int i = 0; i < reversedSum; i++) {
                                 OffensivePower *= attackMagnification;
                             }
                             int damege = (int) OffensivePower;
 
-                            if (myTurn == true) {
+                            if(selected==71){
+                                damege+=400*reversedSum;
+                            }
+
+                            int Poison;
+                            if(myTurn){
+                                Poison = counter.getMyPoisonCount();
+                            }else{
+                                Poison = counter.getYourPoisonCount();
+                            }
+                            damege+=Poison*300; //72 毒
+                            int lifeBurst=0;
+
+                            if(selected==73){
+                                if(myTurn) {
+                                    if (myColor == 1) {
+                                        lifeBurst = (maxHP - player0_hp) / 100;
+                                    } else {
+                                        lifeBurst = (maxHP - player1_hp) / 100;
+                                    }
+                                }else{
+                                    if (myColor == 1) {
+                                        lifeBurst = (maxHP - enemy0_hp) / 100;
+                                    } else {
+                                        lifeBurst = (maxHP - enemy1_hp) / 100;
+                                    }
+                                }
+                                System.out.println(player0_hp);
+                                System.out.println(player1_hp);
+                                System.out.println(enemy0_hp);
+                                System.out.println(enemy1_hp);
+                                damege+=lifeBurst*60;
+                            }
+
+                                System.out.println(damege);
+
+                            if(selected==74){
+                                damege+=(counter.getBlackCount()+counter.getWhiteCount())*50;
+                            }
+
+                            if (myTurn) {
                                 if (myColor == 0) {
                                     enemy1_hp -= damege;
-                                    String strEnemy1_hp = String.valueOf((int) enemy1_hp);
+                                    String strEnemy1_hp = String.valueOf(enemy1_hp);
                                     enemy_HP.setText(strEnemy1_hp);
 
                                     enemy_HPGAUGE.setBounds(0, 55, (int) (maxHpGaugeWidth * enemy1_hp), 10);
                                 } else {
                                     enemy0_hp -= damege;
-                                    String strEnemy0_hp = String.valueOf((int) enemy0_hp);
+                                    String strEnemy0_hp = String.valueOf(enemy0_hp);
                                     enemy_HP.setText(strEnemy0_hp);
 
                                     enemy_HPGAUGE.setBounds(0, 55, (int) (maxHpGaugeWidth * enemy0_hp), 10);
@@ -663,13 +622,13 @@ public class Client extends JFrame implements MouseListener {
                             } else {
                                 if (myColor == 0) {
                                     player1_hp -= damege;
-                                    String strPlayer1_hp = String.valueOf((int) player1_hp);
+                                    String strPlayer1_hp = String.valueOf(player1_hp);
                                     player_HP.setText(strPlayer1_hp);
 
                                     player_HPGAUGE.setBounds(0, 5, (int) (maxHpGaugeWidth * player1_hp), 10);
                                 } else {
                                     player0_hp -= damege;
-                                    String strPlayer0_hp = String.valueOf((int) player0_hp);
+                                    String strPlayer0_hp = String.valueOf(player0_hp);
                                     player_HP.setText(strPlayer0_hp);
                                     player_HPGAUGE.setBounds(0, 5, (int) (maxHpGaugeWidth * player0_hp), 10);
                                 }
@@ -704,8 +663,6 @@ public class Client extends JFrame implements MouseListener {
                         break;
                     }
                 }
-                Counter counter;
-                counter = countStone();
                 if (myIcon == blackIcon) {
                     if (player1_hp < 0) {
                         for (ImageIcon i : youloseIcon) {
@@ -724,6 +681,7 @@ public class Client extends JFrame implements MouseListener {
                             str_main.setIcon(i);
                             longlongSleep();
                         }
+                        str_main.setIcon(null);
                     } else {
                         for (ImageIcon i : youwinIcon) {
                             str_main.setIcon(i);
@@ -742,7 +700,7 @@ public class Client extends JFrame implements MouseListener {
 
 
     public static void main(String[] args) {
-        Client net = new Client();
+        MyClient net = new MyClient();
         net.setVisible(true);
     }
 
@@ -780,6 +738,10 @@ public class Client extends JFrame implements MouseListener {
             mySelectedHorseIcon = horse_black_selectedIcon;
             myNoSelectedBirdIcon = bird_black_noSelectedIcon;
             mySelectedBirdIcon = bird_black_selectedIcon;
+            myPutCatIcon = cat_black_putIcon;
+            myPutBoarIcon = boar_black_putIcon;
+            myPutHorseIcon = horse_black_putIcon;
+            myPutBirdIcon = bird_black_putIcon;
 
             yourIcon = whiteIcon;
             yourNoSelectedIcon = white_noSelectedIcon;
@@ -792,6 +754,10 @@ public class Client extends JFrame implements MouseListener {
             yourSelectedHorseIcon = horse_white_selectedIcon;
             yourNoSelectedBirdIcon = bird_white_noSelectedIcon;
             yourSelectedBirdIcon = bird_white_selectedIcon;
+            yourPutCatIcon = cat_white_putIcon;
+            yourPutBoarIcon = boar_white_putIcon;
+            yourPutHorseIcon = horse_white_putIcon;
+            yourPutBirdIcon = bird_white_putIcon;
 
             for (ImageIcon i : yourturnIcon) {
                 str_main.setIcon(i);
@@ -812,6 +778,10 @@ public class Client extends JFrame implements MouseListener {
             mySelectedHorseIcon = horse_white_selectedIcon;
             myNoSelectedBirdIcon = bird_white_noSelectedIcon;
             mySelectedBirdIcon = bird_white_selectedIcon;
+            myPutCatIcon = cat_white_putIcon;
+            myPutBoarIcon = boar_white_putIcon;
+            myPutHorseIcon = horse_white_putIcon;
+            myPutBirdIcon = bird_white_putIcon;
 
             yourIcon = blackIcon;
             yourNoSelectedIcon = black_noSelectedIcon;
@@ -824,7 +794,10 @@ public class Client extends JFrame implements MouseListener {
             yourSelectedHorseIcon = horse_black_selectedIcon;
             yourNoSelectedBirdIcon = bird_black_noSelectedIcon;
             yourSelectedBirdIcon = bird_black_selectedIcon;
-
+            yourPutCatIcon = cat_black_putIcon;
+            yourPutBoarIcon = boar_black_putIcon;
+            yourPutHorseIcon = horse_black_putIcon;
+            yourPutBirdIcon = bird_black_putIcon;
 
             countPutDownStone();
         }
@@ -833,25 +806,49 @@ public class Client extends JFrame implements MouseListener {
     private Counter countStone() {
         Counter counter = new Counter();
 
+
         for (int y = 0; y < MASU; y++) {
             for (int x = 0; x < MASU; x++) {
                 if (buttonArray[y][x].getIcon() == blackIcon)
                     counter.blackCount++;
                 if (buttonArray[y][x].getIcon() == whiteIcon)
                     counter.whiteCount++;
+                if(buttonArray[y][x].getIcon() == myPutBoarIcon){
+                    counter.myPoisonCount++;
+                }
+                if(buttonArray[y][x].getIcon() == yourPutBoarIcon){
+                    counter.yourPoisonCount++;
+                }
             }
         }
-
         return counter;
     }
 
     private class Counter {
         public int blackCount;
         public int whiteCount;
+        public int myPoisonCount;
+        public int yourPoisonCount;
 
         public Counter() {
             blackCount = 0;
             whiteCount = 1;
+        }
+
+        public int getBlackCount() {
+            return blackCount;
+        }
+
+        public int getWhiteCount() {
+            return whiteCount;
+        }
+
+        public int getMyPoisonCount() {
+            return myPoisonCount;
+        }
+
+        public int getYourPoisonCount() {
+            return yourPoisonCount;
         }
     }
 
@@ -872,7 +869,7 @@ public class Client extends JFrame implements MouseListener {
         // (x,y)に打てるのは確認済みなので相手の石は必ず
         x += vecX;
         y += vecY;
-        while (buttonArray[y][x].getIcon() != myIcon) {
+        while (buttonArray[y][x].getIcon() != myIcon && buttonArray[y][x].getIcon() != myPutHorseIcon && buttonArray[y][x].getIcon() != myPutBirdIcon && buttonArray[y][x].getIcon() != myPutCatIcon && buttonArray[y][x].getIcon() != myPutBoarIcon) {
             // ひっくり返す
             msg = "REVERSE" + " " + myColor + " " + x + " " + y;
             out.println(msg);
@@ -885,7 +882,7 @@ public class Client extends JFrame implements MouseListener {
 
     private boolean canPutDown(int x, int y) {
         // (x,y)にすでに石が打たれてたら打てない
-        if (buttonArray[y][x].getIcon() == whiteIcon || buttonArray[y][x].getIcon() == blackIcon)
+        if (buttonArray[y][x].getIcon() == myIcon ||buttonArray[y][x].getIcon() == myPutHorseIcon || buttonArray[y][x].getIcon() == myPutBirdIcon || buttonArray[y][x].getIcon() == myPutCatIcon || buttonArray[y][x].getIcon() == myPutBoarIcon || buttonArray[y][x].getIcon() == yourIcon ||buttonArray[y][x].getIcon() == yourPutHorseIcon || buttonArray[y][x].getIcon() == yourPutBirdIcon || buttonArray[y][x].getIcon() == yourPutCatIcon || buttonArray[y][x].getIcon() == yourPutBoarIcon)
             return false;
         // 8方向のうち一箇所でもひっくり返せればこの場所に打てる
         // ひっくり返せるかどうかはもう1つのcanPutDownで調べる
@@ -920,7 +917,7 @@ public class Client extends JFrame implements MouseListener {
         if (x < 0 || x >= MASU || y < 0 || y >= MASU)
             return false;
         // 隣が自分の石の場合は打てない
-        if (buttonArray[y][x].getIcon() == myIcon)
+        if (buttonArray[y][x].getIcon() == myIcon ||buttonArray[y][x].getIcon() == myPutHorseIcon || buttonArray[y][x].getIcon() == myPutBirdIcon || buttonArray[y][x].getIcon() == myPutCatIcon || buttonArray[y][x].getIcon() == myPutBoarIcon)
             return false;
         // 隣が空白の場合は打てない
         if (buttonArray[y][x].getIcon() == boardIcon || buttonArray[y][x].getIcon() == canPutIcon)
@@ -940,7 +937,7 @@ public class Client extends JFrame implements MouseListener {
             if (buttonArray[y][x].getIcon() == boardIcon || buttonArray[y][x].getIcon() == canPutIcon)
                 return false;
             // 自分の石があればはさめるので打てる
-            if (buttonArray[y][x].getIcon() == myIcon) {
+            if (buttonArray[y][x].getIcon() == myIcon ||buttonArray[y][x].getIcon() == myPutHorseIcon || buttonArray[y][x].getIcon() == myPutBirdIcon || buttonArray[y][x].getIcon() == myPutCatIcon || buttonArray[y][x].getIcon() == myPutBoarIcon) {
                 canPutX = x - (vecX * (count + 1));
                 canPutY = y - (vecY * (count + 1));
                 String msg = "CANPUT" + " " + canPutX + " " + canPutY;
@@ -995,64 +992,72 @@ public class Client extends JFrame implements MouseListener {
         Icon theIcon = theButton.getIcon();//theIconには，現在のボタンに設定されたアイコンが入る
         System.out.println(theIcon);//デバッグ（確認用）に，クリックしたアイコンの名前を出力する
 
-
-        if (!endGame) {
-            if (theArrayIndexInt == 70 || theArrayIndexInt == 71 || theArrayIndexInt == 72 || theArrayIndexInt == 73 || theArrayIndexInt == 74) {
-                if (theArrayIndexInt == 70) {
-                    othello_piece_Normal.setIcon(mySelectedIcon);
-                    othello_piece_A.setIcon(myNoSelectdCatIcon);
-                    othello_piece_B.setIcon(myNoSelectedBoarIcon);
-                    othello_piece_C.setIcon(myNoSelectedHorseIcon);
-                    othello_piece_D.setIcon(myNoSelectedBirdIcon);
-                    selected = 70;
-                } else if (theArrayIndexInt == 71) {
-                    othello_piece_Normal.setIcon(myNoSelectedIcon);
-                    othello_piece_A.setIcon(mySelectedCatIcon);
-                    othello_piece_B.setIcon(myNoSelectedBoarIcon);
-                    othello_piece_C.setIcon(myNoSelectedHorseIcon);
-                    othello_piece_D.setIcon(myNoSelectedBirdIcon);
-                    selected = 71;
-                } else if (theArrayIndexInt == 72) {
-                    othello_piece_Normal.setIcon(myNoSelectedIcon);
-                    othello_piece_A.setIcon(myNoSelectdCatIcon);
-                    othello_piece_B.setIcon(mySelectedBoarIcon);
-                    othello_piece_C.setIcon(myNoSelectedHorseIcon);
-                    othello_piece_D.setIcon(myNoSelectedBirdIcon);
-                    selected = 72;
-                } else if (theArrayIndexInt == 73) {
-                    othello_piece_Normal.setIcon(myNoSelectedIcon);
-                    othello_piece_A.setIcon(myNoSelectdCatIcon);
-                    othello_piece_B.setIcon(myNoSelectedBoarIcon);
-                    othello_piece_C.setIcon(mySelectedHorseIcon);
-                    othello_piece_D.setIcon(myNoSelectedBirdIcon);
-                    selected = 73;
-                } else if (theArrayIndexInt == 74) {
-                    othello_piece_Normal.setIcon(myNoSelectedIcon);
-                    othello_piece_A.setIcon(myNoSelectdCatIcon);
-                    othello_piece_B.setIcon(myNoSelectedBoarIcon);
-                    othello_piece_C.setIcon(myNoSelectedHorseIcon);
-                    othello_piece_D.setIcon(mySelectedBirdIcon);
-                    selected = 74;
-                }
-            } else {
-
-                if (myTurn) {
-                    if (canPutDown(x, y)) {
-                        msg = "PUSH" + " " + x + " " + y;
-                        out.println(msg);//送信データをバッファに書き出す
-                        out.flush();
-                        msg = "FLIP" + " " + myColor + " " + x + " " + y;
+        if(myTurn) {
+            if (!endGame) {
+                if (theArrayIndexInt == 70 || theArrayIndexInt == 71 || theArrayIndexInt == 72 || theArrayIndexInt == 73 || theArrayIndexInt == 74) {
+                    if (theArrayIndexInt == 70) {
+                        othello_piece_Normal.setIcon(mySelectedIcon);
+                        othello_piece_A.setIcon(myNoSelectdCatIcon);
+                        othello_piece_B.setIcon(myNoSelectedBoarIcon);
+                        othello_piece_C.setIcon(myNoSelectedHorseIcon);
+                        othello_piece_D.setIcon(myNoSelectedBirdIcon);
+                        msg = "SELECT" + " " + myColor + " " + theArrayIndexInt;
                         out.println(msg);
                         out.flush();
-                        reverse(x, y);
-                        msg = "REVERSED";
-                        out.println(msg);//送信データをバッファに書き出す
+                    } else if (theArrayIndexInt == 71) {
+                        othello_piece_Normal.setIcon(myNoSelectedIcon);
+                        othello_piece_A.setIcon(mySelectedCatIcon);
+                        othello_piece_B.setIcon(myNoSelectedBoarIcon);
+                        othello_piece_C.setIcon(myNoSelectedHorseIcon);
+                        othello_piece_D.setIcon(myNoSelectedBirdIcon);
+                        msg = "SELECT" + " " + myColor + " " + theArrayIndexInt;
+                        out.println(msg);
                         out.flush();
-                    } else {
-                        System.out.println("そこには配置できません");
+                    } else if (theArrayIndexInt == 72) {
+                        othello_piece_Normal.setIcon(myNoSelectedIcon);
+                        othello_piece_A.setIcon(myNoSelectdCatIcon);
+                        othello_piece_B.setIcon(mySelectedBoarIcon);
+                        othello_piece_C.setIcon(myNoSelectedHorseIcon);
+                        othello_piece_D.setIcon(myNoSelectedBirdIcon);
+                        msg = "SELECT" + " " + myColor + " " + theArrayIndexInt;
+                        out.println(msg);
+                        out.flush();
+                    } else if (theArrayIndexInt == 73) {
+                        othello_piece_Normal.setIcon(myNoSelectedIcon);
+                        othello_piece_A.setIcon(myNoSelectdCatIcon);
+                        othello_piece_B.setIcon(myNoSelectedBoarIcon);
+                        othello_piece_C.setIcon(mySelectedHorseIcon);
+                        othello_piece_D.setIcon(myNoSelectedBirdIcon);
+                        msg = "SELECT" + " " + myColor + " " + theArrayIndexInt;
+                        out.println(msg);
+                        out.flush();
+                    } else if (theArrayIndexInt == 74) {
+                        othello_piece_Normal.setIcon(myNoSelectedIcon);
+                        othello_piece_A.setIcon(myNoSelectdCatIcon);
+                        othello_piece_B.setIcon(myNoSelectedBoarIcon);
+                        othello_piece_C.setIcon(myNoSelectedHorseIcon);
+                        othello_piece_D.setIcon(mySelectedBirdIcon);
+                        msg = "SELECT" + " " + myColor + " " + theArrayIndexInt;
+                        out.println(msg);
+                        out.flush();
                     }
                 } else {
-                    System.out.println("今あなた違う");
+
+                    if (myTurn) {
+                        if (canPutDown(x, y)) {
+                            msg = "FLIP" + " " + x + " " + y;
+                            out.println(msg);
+                            out.flush();
+                            reverse(x, y);
+                            msg = "REVERSED";
+                            out.println(msg);//送信データをバッファに書き出す
+                            out.flush();
+                        } else {
+                            System.out.println("そこには配置できません");
+                        }
+                    } else {
+                        System.out.println("今あなた違う");
+                    }
                 }
             }
         }
@@ -1062,13 +1067,36 @@ public class Client extends JFrame implements MouseListener {
         JButton theButton = (JButton) e.getComponent();//クリックしたオブジェクトを得る．型が違うのでキャストする
         String theArrayIndex = theButton.getActionCommand();//ボタンの配列の番号を取り出す
         int theArrayIndexInt = Integer.parseInt(theArrayIndex);
+        pieceDescription.setBackground(new Color(128,128,128,128));
+        pieceDescription.setForeground(new Color(255,255,0));
+
         if (theArrayIndexInt == 74) {
-            pieceDescription.setIcon(background_black);
+            pieceDescription.setText("        ひっくり返した後の駒数×50のダメージを与える");
+            pieceDescription.setOpaque(true);
         }
+        if (theArrayIndexInt == 73) {
+            pieceDescription.setText("        　　自分のHPが減少する程ダメージが上昇する");
+            pieceDescription.setOpaque(true);
+        }
+        if (theArrayIndexInt == 72) {
+            pieceDescription.setText("盤面で表になっている間、毎ターン300のダメージを与える");
+            pieceDescription.setOpaque(true);
+        }
+        if (theArrayIndexInt == 71) {
+            pieceDescription.setText(" 　　ひっくり返した駒の枚数×300のダメージを与える");
+            pieceDescription.setOpaque(true);
+        }
+        if (theArrayIndexInt == 70) {
+            pieceDescription.setText(" 　                　普通の駒");
+            pieceDescription.setOpaque(true);
+        }
+
     }
 
     public void mouseExited(MouseEvent e) {
-        pieceDescription.setIcon(null);
+
+        pieceDescription.setText(null);
+        pieceDescription.setOpaque(false);
     }
 
     public void mousePressed(MouseEvent e) {

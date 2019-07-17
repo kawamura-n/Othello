@@ -29,20 +29,19 @@ class ClientProcThread extends Thread {
 
             while (true) {//無限ループで，ソケットへの入力を監視する
                 String str = myIn.readLine();
-                System.out.println("Received from client No."+number+"("+myName+"), Messages: "+str);
+ //               System.out.println("Received from client No."+number+"("+myName+"), Messages: "+str);
                 if (str != null) {//このソケット（バッファ）に入力があるかをチェック
                     if (str.toUpperCase().equals("BYE")) {
                         myOut.println("Good bye!");
                         break;
                     }
-                    Server.SendAll(str, myName);//サーバに来たメッセージは接続しているクライアント全員に配る
+                    MyServer.SendAll(str, myName);//サーバに来たメッセージは接続しているクライアント全員に配る
                 }
             }
         } catch (Exception e) {
             //ここにプログラムが到達するときは，接続が切れたとき
             System.out.println("Disconnect from client No."+number+"("+myName+")");
-            Server.SetFlag(number, false);//接続が切れたのでフラグを下げる
+            MyServer.SetFlag(number, false);//接続が切れたのでフラグを下げる
         }
     }
 }
-
