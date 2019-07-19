@@ -239,10 +239,12 @@ public class MyClient extends JFrame implements MouseListener {
 
         enemy_maxhp = Integer.toString(enemy.Maxhp);
         enemy_MAXHP = new JLabel("/" + (enemy_maxhp));
+        enemy_MAXHP.setForeground(new Color(0,0,0));
         enemy_MAXHP.setBounds(320, 55, 100, 10);
 
         enemy_hp = String.valueOf(enemy.hp);
         enemy_HP = new JLabel(enemy_hp);
+        enemy_HP.setForeground(new Color(0,0,0));
         enemy_HP.setBounds(285, 55, 100, 10);
 
         enemy_HPGAUGE = new JLabel(hpGauge_green);
@@ -350,10 +352,12 @@ public class MyClient extends JFrame implements MouseListener {
 
         player_maxhp = Integer.toString(player.Maxhp);
         player_MAXHP = new JLabel("/" + (player_maxhp));
+        player_MAXHP.setForeground(new Color(0,0,0));
         player_MAXHP.setBounds(320, 5, 100, 10);
 
         player_hp = String.valueOf(player.hp);
         player_HP = new JLabel(player_hp);
+        player_HP.setForeground(new Color(0,0,0));
         player_HP.setBounds(285, 5, 100, 10);
 
         player_HPGAUGE = new JLabel(hpGauge_green);
@@ -475,17 +479,23 @@ public class MyClient extends JFrame implements MouseListener {
                 othello_piece_C.setIcon(myNoSelectedHorseIcon);
                 othello_piece_D.setIcon(myNoSelectedBirdIcon);
 
-                buttonArray[3][3].setIcon(whiteIcon);
-                buttonArray[4][3].setIcon(blackIcon);
-                buttonArray[4][4].setIcon(whiteIcon);
-                buttonArray[3][4].setIcon(blackIcon);
+//                buttonArray[3][3].setIcon(whiteIcon);
+//                buttonArray[4][3].setIcon(blackIcon);
+//                buttonArray[4][4].setIcon(whiteIcon);
+//                buttonArray[3][4].setIcon(blackIcon);
 
-                if (myTurn) {
-                    buttonArray[3][2].setIcon(canPutIcon);
-                    buttonArray[2][3].setIcon(canPutIcon);
-                    buttonArray[5][4].setIcon(canPutIcon);
-                    buttonArray[4][5].setIcon(canPutIcon);
-                }
+                buttonArray[5][4].setIcon(blackIcon);
+                buttonArray[4][4].setIcon(whiteIcon);
+                buttonArray[3][4].setIcon(whiteIcon);
+
+                buttonArray[2][4].setIcon(canPutIcon);
+
+//                if (myTurn) {
+//                    buttonArray[3][2].setIcon(canPutIcon);
+//                    buttonArray[2][3].setIcon(canPutIcon);
+//                    buttonArray[5][4].setIcon(canPutIcon);
+//                    buttonArray[4][5].setIcon(canPutIcon);
+//                }
 
                 while (true) {
                     String inputLine = br.readLine();//データを一行分だけ読み込んでみる
@@ -717,8 +727,8 @@ public class MyClient extends JFrame implements MouseListener {
                                         lifeBurst = (maxHP - enemy1_hp) / 100;
                                     }
                                 }
-                                itDamege=lifeBurst*60;
-                                skillDamegeLabel.setText("減少分割合　"+lifeBurst+"%×"+60+"="+itDamege);
+                                itDamege=lifeBurst*50;
+                                skillDamegeLabel.setText("減少分割合　"+lifeBurst+"%×"+50+"="+itDamege);
                                 damege+=itDamege;
 
                                 for (ImageIcon i : horseDoorIcon) {
